@@ -1,19 +1,122 @@
-# The Ultimate Spring Boot Course
+# Store API
 
-This repository contains the starter project for Part 2 of my Spring Boot course:
+A Spring Boot REST API for an e-commerce store application built with Spring Boot 3.4.1, Java 23, and MySQL. This project provides endpoints for managing users, products, categories, addresses, profiles, and messages.
 
-[https://codewithmosh.com/p/spring-boot-building-apis](https://codewithmosh.com/p/spring-boot-building-apis)
+> This is a starter project for [The Ultimate Spring Boot Course](https://codewithmosh.com/p/spring-boot-building-apis)
 
-## About this Repository 
+## Tech Stack
 
-This project is based on the final project from Part 1 of the course, but I’ve cleaned it up and removed unnecessary playground code so we can focus on building APIs in Part 2.
+- **Framework**: Spring Boot 3.4.1
+- **Language**: Java 23
+- **Database**: MySQL
+- **ORM**: Spring Data JPA
+- **Database Migrations**: Flyway
+- **Build Tool**: Maven
+- **Productivity**: Lombok
 
-You’ll be cloning this repository and coding along with me as we extend the project.
+## Project Structure
 
-To get started, clone the repository to your local machine:
-
-```sh
-git clone https://github.com/mosh-hamedani/spring-api-starter
-
-cd spring-api
 ```
+src/main/java/com/codewithmosh/store/
+├── StoreApplication.java          # Main Spring Boot application
+├── controllers/                   # REST Controllers
+│   ├── HomeController.java
+│   ├── UserController.java
+│   └── MessageController.java
+├── entities/                      # JPA Entities
+│   ├── User.java
+│   ├── Product.java
+│   ├── Category.java
+│   ├── Address.java
+│   ├── Profile.java
+│   └── Message.java
+├── repositories/                  # Spring Data JPA Repositories
+│   ├── UserRepository.java
+│   ├── ProductRepository.java
+│   ├── CategoryRepository.java
+│   ├── AddressRepository.java
+│   └── ProfileRepository.java
+└── dtos/                          # Data Transfer Objects
+    └── UserDto.java
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Java 23 or higher
+- Maven 3.6 or higher
+- MySQL 5.7 or higher
+
+### Setup
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/mosh-hamedani/spring-api-starter
+   cd spring-api-starter
+   ```
+
+2. Configure the database in `pom.xml` (Flyway configuration):
+   ```xml
+   <url>jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true</url>
+   <user>root</user>
+   <password>MyPassword!</password>
+   ```
+
+3. Build and run the application:
+   ```sh
+   mvn clean install
+   mvn spring-boot:run
+   ```
+
+The application will start on `http://localhost:8080`
+
+## API Endpoints
+
+### Users
+- `GET /api/users` - Get all users
+- `POST /api/users` - Create a new user
+- `GET /api/users/{id}` - Get user by ID
+- `PUT /api/users/{id}` - Update user
+- `DELETE /api/users/{id}` - Delete user
+
+### Messages
+- `GET /api/messages` - Get all messages
+- `POST /api/messages` - Create a new message
+
+### Home
+- `GET /` - Welcome endpoint
+
+## Features
+
+- ✓ User management with profile support
+- ✓ Product catalog with category organization
+- ✓ Address management for users
+- ✓ Messaging system
+- ✓ RESTful API design
+- ✓ Automatic database schema management with Flyway
+- ✓ Type-safe database access with Spring Data JPA
+- ✓ Reduced boilerplate with Lombok
+
+## Key Dependencies
+
+- Spring Boot Starter Web
+- Spring Boot Starter Data JPA
+- Spring Boot Starter Thymeleaf
+- MySQL Connector/J
+- Flyway Core & MySQL
+- Lombok
+- Spring Boot Starter Test
+
+## Database Schema
+
+The application uses Flyway for automatic schema migrations. Migrations are managed in the `db/migration` directory and are executed automatically on application startup.
+
+## Notes
+
+- Sensitive configuration (database passwords) should be moved to environment variables in production
+- Database credentials in `pom.xml` are for development only
+
+## Learning Resources
+
+For detailed learning resources, visit [The Ultimate Spring Boot Course](https://codewithmosh.com/p/spring-boot-building-apis)
