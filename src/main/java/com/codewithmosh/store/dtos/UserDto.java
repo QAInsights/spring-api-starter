@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
-
 public class UserDto {
 
     @JsonProperty("user_id")

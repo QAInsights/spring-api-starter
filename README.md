@@ -22,6 +22,7 @@ src/main/java/com/codewithmosh/store/
 ├── controllers/                   # REST Controllers
 │   ├── HomeController.java
 │   ├── UserController.java
+│   ├── ProductController.java
 │   └── MessageController.java
 ├── entities/                      # JPA Entities
 │   ├── User.java
@@ -36,8 +37,14 @@ src/main/java/com/codewithmosh/store/
 │   ├── CategoryRepository.java
 │   ├── AddressRepository.java
 │   └── ProfileRepository.java
-└── dtos/                          # Data Transfer Objects
-    └── UserDto.java
+├── dtos/                          # Data Transfer Objects
+│   ├── UserDto.java
+│   ├── ProductDto.java
+│   └── CategoryDto.java
+└── mappers/                       # Entity to DTO Mappers
+    ├── UserMapper.java
+    ├── ProductMapper.java
+    └── CategoryMapper.java
 ```
 
 ## Getting Started
@@ -56,11 +63,13 @@ src/main/java/com/codewithmosh/store/
    cd spring-api-starter
    ```
 
-2. Configure the database in `pom.xml` (Flyway configuration):
-   ```xml
-   <url>jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true</url>
-   <user>root</user>
-   <password>MyPassword!</password>
+2. Configure the database in `src/main/resources/application.yaml`:
+   ```yaml
+   spring:
+     datasource:
+       url: jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true
+       username: root
+       password: YOUR_PASSWORD
    ```
 
 3. Build and run the application:
@@ -80,6 +89,20 @@ The application will start on `http://localhost:8080`
 - `PUT /api/users/{id}` - Update user
 - `DELETE /api/users/{id}` - Delete user
 
+### Products
+- `GET /api/products` - Get all products
+- `POST /api/products` - Create a new product
+- `GET /api/products/{id}` - Get product by ID
+- `PUT /api/products/{id}` - Update product
+- `DELETE /api/products/{id}` - Delete product
+
+### Categories
+- `GET /api/categories` - Get all categories
+- `POST /api/categories` - Create a new category
+- `GET /api/categories/{id}` - Get category by ID
+- `PUT /api/categories/{id}` - Update category
+- `DELETE /api/categories/{id}` - Delete category
+
 ### Messages
 - `GET /api/messages` - Get all messages
 - `POST /api/messages` - Create a new message
@@ -93,7 +116,8 @@ The application will start on `http://localhost:8080`
 - ✓ Product catalog with category organization
 - ✓ Address management for users
 - ✓ Messaging system
-- ✓ RESTful API design
+- ✓ Entity-to-DTO mapping for clean API contracts
+- ✓ RESTful API design with full CRUD operations
 - ✓ Automatic database schema management with Flyway
 - ✓ Type-safe database access with Spring Data JPA
 - ✓ Reduced boilerplate with Lombok
