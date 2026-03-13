@@ -83,29 +83,34 @@ The application will start on `http://localhost:8080`
 ## API Endpoints
 
 ### Users
-- `GET /api/users` - Get all users
-- `POST /api/users` - Create a new user
-- `GET /api/users/{id}` - Get user by ID
-- `PUT /api/users/{id}` - Update user
-- `DELETE /api/users/{id}` - Delete user
+- `GET /users` - Get all users
+    - Supports query parameter `sort=name|email`
+    - Supports optional `X-Auth-Token` header for authentication
+- `POST /users` - Create a new user
+    - Request body: `{"name": "...", "email": "...", "password": "..."}`
+- `GET /users/{id}` - Get user by ID
+- `PUT /users/{id}` - Update user (Planned)
+- `DELETE /users/{id}` - Delete user (Planned)
 
 ### Products
-- `GET /api/products` - Get all products
-- `POST /api/products` - Create a new product
-- `GET /api/products/{id}` - Get product by ID
-- `PUT /api/products/{id}` - Update product
-- `DELETE /api/products/{id}` - Delete product
+- `GET /products` - Get all products
+    - Supports query parameter `categoryId` to filter products
+- `GET /products/{id}` - Get product by ID
+- `POST /products` - Create a new product (Planned)
+- `PUT /products/{id}` - Update product (Planned)
+- `DELETE /products/{id}` - Delete product (Planned)
 
-### Categories
-- `GET /api/categories` - Get all categories
-- `POST /api/categories` - Create a new category
-- `GET /api/categories/{id}` - Get category by ID
-- `PUT /api/categories/{id}` - Update category
-- `DELETE /api/categories/{id}` - Delete category
+### Categories (Planned)
+- `GET /categories` - Get all categories
+- `POST /categories` - Create a new category
+- `GET /categories/{id}` - Get category by ID
+- `PUT /categories/{id}` - Update category
+- `DELETE /categories/{id}` - Delete category
 
 ### Messages
-- `GET /api/messages` - Get all messages
-- `POST /api/messages` - Create a new message
+- `GET /hello` - A simple hello endpoint
+- `GET /messages` - Get all messages (Planned)
+- `POST /messages` - Create a new message (Planned)
 
 ### Home
 - `GET /` - Welcome endpoint
