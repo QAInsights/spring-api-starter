@@ -2,7 +2,6 @@ package com.codewithmosh.store.controllers;
 
 import com.codewithmosh.store.dtos.AddItemToCartRequest;
 import com.codewithmosh.store.dtos.CartDto;
-import com.codewithmosh.store.dtos.CartItemDto;
 import com.codewithmosh.store.entities.Cart;
 import com.codewithmosh.store.entities.CartItem;
 import com.codewithmosh.store.mappers.CartMapper;
@@ -10,7 +9,6 @@ import com.codewithmosh.store.repositories.CartRepository;
 import com.codewithmosh.store.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,7 +43,7 @@ public class CartController {
             @PathVariable UUID cartId,
             @RequestBody AddItemToCartRequest addItemToCartRequest) {
 
-        var cart = cartRepository.findById(cartId).orElse(null);
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
         if (cart == null)
             return ResponseEntity.notFound().build();
 
@@ -54,7 +52,7 @@ public class CartController {
         if (product == null)
             return ResponseEntity.badRequest().build();
 
-        var cartItem = cart.getCartItems().stream()
+        var cartItem = cart.getItems().stream()
                 .filter((item) -> item.getProduct().getId().equals(product.getId()))
                 .findFirst()
                 .orElse(null);
@@ -67,12 +65,26 @@ public class CartController {
             cartItem.setProduct(product);
             cartItem.setQuantity(1);
             cartItem.setCart(cart);
-            cart.getCartItems().add(cartItem);
+            cart.getItems().add(cartItem);
         }
         cartRepository.save(cart);
         var cartItemDto = cartMapper.toDto(cartItem);
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(cartItemDto);
+    }
+
+    @GetMapping("/{cartId}")
+    public ResponseEntity<CartDto> getCart(
+            @PathVariable UUID cartId
+    ) {
+        var cart = cartRepository.getCartWithItems(cartId).orElse(null);
+        System.out.println(cart);
+        if (cart == null)
+            return ResponseEntity.notFound().build();
+
+        var cartDto = cartMapper.toDto(cart);
+
+        return ResponseEntity.ok(cartDto);
     }
 }
